@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>メモを作成する</title>
+    <style>
+        body {
+            margin: 0 36px;
+        }
+        table {
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+        th, td {
+            width: 80px;
+            padding: 15px 12px;
+            text-align: center;
+            border: 1px solid #eaeaea;
+        }
+        td.title {
+            width: 200px;
+        }
+        td.content {
+            width: 350px;
+        }
+        th {
+            background: #f6f6f6;
+            color: #555;
+        }
+        h1, small {
+            display: inline-block;
+        }
+        .navbar-btn {
+            display: inline-block;
+            padding: 0.3em 1em;
+            text-decoration: none;
+            color: #357eab;
+            border: solid 1px #357eab;
+            border-radius: 3px;
+            font-size: 13px;
+        }
+        section {
+            padding: 20px 10px;
+        }
+    </style>
+  </head>
+  <body>
+    <h1>NOTE</h1>
+    <small>新着順</small>
+    <p style='float:right;'>
+        <a href="{% url 'new_memo' %}">
+            <button type="button" class="navbar-btn">メモを追加する</button>
+        </a>
+    </p>
+    <section>
+    {% if memos %}
+    <table bolder='1'>
+        <tr>
+            <th>タイトル</th>
+            <th>コンテント</th>
+            <th>修正</th>
+            <th>削除</th>
+        </tr>
+        {% for memo in memos %}
+        <tr>
+            <td class="title">{{memo.title}}</td>
+            <td class="content">{{memo.content}}</td>
+            <td><a href="{% url 'modify_memo' memokey=memo.pk %}">修正</a></td>
+            <td><a href="{% url 'delete_memo' memokey=memo.pk %}" onclick="return confirm('本当に削除してよろしいですか?')">削除</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}    
+    <div>登録中のメモがありません。</div>
+    {% endif %}
+    </section>
+  </body>
+</html>
