@@ -63,7 +63,7 @@
         </tr>
         {% for memo in memos %}
         <tr>
-            <td class="title">{{memo.title}}</td>
+            <td class="title"><a href="{% url 'memo' memokey=memo.pk %}">{{memo.title}}</a></td>
             <td class="content">{{memo.content}}</td>
             <td><a href="{% url 'modify_memo' memokey=memo.pk %}">修正</a></td>
             <td><a href="{% url 'delete_memo' memokey=memo.pk %}" onclick="return confirm('本当に削除してよろしいですか?')">削除</a></td>

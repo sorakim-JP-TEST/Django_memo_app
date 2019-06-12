@@ -10,9 +10,8 @@ def index(request):
     memos = Memo.objects.order_by('-updated_at')
     return render(request, 'index.html',  {'memos': memos})
 
-def show(request):
-    memo_id = request.GET.get('id')
-    memo = Memo.objects.get(pk=memo_id)
+def show(request, memokey):
+    memo = Memo.objects.get(pk = memokey)
     return HttpResponse("%s:%s" % (memo.title,memo.content))
 
 def create(request):
@@ -24,7 +23,7 @@ def create(request):
         if form.is_valid():
             memo = form.save(commit=False)
             memo.save()
-            return redirect('/memo?id=%s' % memo.pk)
+            return redirect('memo', memokey=memo.pk)
 
 def modify(request, memokey):
     if request.method == "POST":
